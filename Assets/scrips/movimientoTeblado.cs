@@ -2,17 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class movimiento : MonoBehaviour
+public class movimientoTeclado : MonoBehaviour
 {
     Rigidbody2D rg;
     float valorHorizontal;
     public float velocidad;
     [SerializeField] float JumpForce;
 
-
     float xInicial, yInicial;
-
-    public Joystick joystick;
 
     [SerializeField] bool isGrounded;
     [SerializeField] Transform puntoDeteccion;
@@ -40,6 +37,7 @@ public class movimiento : MonoBehaviour
         float velocidadVertical = rg.velocity.y;
         animator.SetFloat("VelocidadVertical", velocidadVertical);
 
+        Jump();
         Movimiento();
         animator.SetFloat("horizantal", Mathf.Abs(valorHorizontal));
         Flip();
@@ -47,15 +45,14 @@ public class movimiento : MonoBehaviour
 
     private void Movimiento()
     {
-       // valorHorizontal = Input.GetAxis("Horizontal");
-        valorHorizontal = joystick.Horizontal;
+        valorHorizontal = Input.GetAxis("Horizontal");
         rg.velocity = new Vector2(valorHorizontal * velocidad, rg.velocity.y);
     }
 
 
-    public void JumpButton()
+    public void Jump()
     {
-        if (isGrounded)
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             rg.AddForce(new Vector2(0, 1) * JumpForce, ForceMode2D.Impulse);
         }
