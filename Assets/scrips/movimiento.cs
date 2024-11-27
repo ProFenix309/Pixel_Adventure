@@ -22,7 +22,6 @@ public class movimiento : MonoBehaviour
     private SpriteRenderer render;
 
 
-    // Start is called before the first frame update
     void Start()
     {
         xInicial = transform.position.x;
@@ -32,7 +31,6 @@ public class movimiento : MonoBehaviour
         render = GetComponent<SpriteRenderer>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         isGrounded = Physics2D.OverlapBox(puntoDeteccion.position, tamanoDeteccion, 0, capaDeteccion);
