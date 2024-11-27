@@ -12,6 +12,7 @@ public class movimiento : MonoBehaviour
 
     float xInicial, yInicial;
 
+    public Joystick joystick;
 
     [SerializeField] bool isGrounded;
     [SerializeField] Transform puntoDeteccion;
@@ -39,11 +40,6 @@ public class movimiento : MonoBehaviour
         float velocidadVertical = rg.velocity.y;
         animator.SetFloat("VelocidadVertical", velocidadVertical);
 
-        if (isGrounded)
-        {
-            Jump();
-        }
-
         Movimiento();
         animator.SetFloat("horizantal", Mathf.Abs(valorHorizontal));
         Flip();
@@ -51,13 +47,15 @@ public class movimiento : MonoBehaviour
 
     private void Movimiento()
     {
-        valorHorizontal = Input.GetAxis("Horizontal");
+       // valorHorizontal = Input.GetAxis("Horizontal");
+        valorHorizontal = joystick.Horizontal;
         rg.velocity = new Vector2(valorHorizontal * velocidad, rg.velocity.y);
     }
 
-    private void Jump()
+
+    public void JumpButton()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (isGrounded)
         {
             rg.AddForce(new Vector2(0, 1) * JumpForce, ForceMode2D.Impulse);
         }
