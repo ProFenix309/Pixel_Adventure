@@ -37,7 +37,7 @@ public class movimientoTactil : MonoBehaviour
         isGrounded = Physics2D.OverlapBox(puntoDeteccion.position, tamanoDeteccion, 0, capaDeteccion);
         animator.SetBool("enSuelo", isGrounded);
 
-        float velocidadVertical = rg.velocity.y;
+        float velocidadVertical = rg.linearVelocity.y;
         animator.SetFloat("VelocidadVertical", velocidadVertical);
 
         Movimiento();
@@ -49,7 +49,7 @@ public class movimientoTactil : MonoBehaviour
     {
        // valorHorizontal = Input.GetAxis("Horizontal");
         valorHorizontal = joystick.Horizontal;
-        rg.velocity = new Vector2(valorHorizontal * velocidad, rg.velocity.y);
+        rg.linearVelocity = new Vector2(valorHorizontal * velocidad, rg.linearVelocity.y);
     }
 
 

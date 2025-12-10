@@ -34,7 +34,7 @@ public class movimientoTeclado : MonoBehaviour
         isGrounded = Physics2D.OverlapBox(puntoDeteccion.position, tamanoDeteccion, 0, capaDeteccion);
         animator.SetBool("enSuelo", isGrounded);
 
-        float velocidadVertical = rg.velocity.y;
+        float velocidadVertical = rg.linearVelocity.y;
         animator.SetFloat("VelocidadVertical", velocidadVertical);
 
         Jump();
@@ -46,7 +46,7 @@ public class movimientoTeclado : MonoBehaviour
     private void Movimiento()
     {
         valorHorizontal = Input.GetAxis("Horizontal");
-        rg.velocity = new Vector2(valorHorizontal * velocidad, rg.velocity.y);
+        rg.linearVelocity = new Vector2(valorHorizontal * velocidad, rg.linearVelocity.y);
     }
 
 

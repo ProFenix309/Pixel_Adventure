@@ -10,13 +10,13 @@ public class Enemi_Controller : MonoBehaviour
     public Collider2D objetivo;
     public float speed;
     public Transform centroVision;
-    public Vector2 tamañoVision;
+    public Vector2 tamaÃ±oVision;
     public LayerMask capasVision;
     public float distancia;
 
     private bool facingRight = true; 
-    public BoxCollider2D areaDeDaño;
-    public float daño;
+    public BoxCollider2D areaDeDaÃ±o;
+    public float daÃ±o;
 
     private float tiempoEntreAtaques = 1f;
     private float tiempoUltimoAtaque = 0f;  
@@ -29,7 +29,7 @@ public class Enemi_Controller : MonoBehaviour
 
     private void FixedUpdate()
     {
-        objetivo = Physics2D.OverlapBox(centroVision.position, tamañoVision, 0, capasVision);
+        objetivo = Physics2D.OverlapBox(centroVision.position, tamaÃ±oVision, 0, capasVision);
         anim.SetBool("JugadorDetectado", objetivo != null);
 
         if (objetivo != null)
@@ -38,13 +38,13 @@ public class Enemi_Controller : MonoBehaviour
             anim.SetFloat("Distancia", distancia);
 
             Vector2 direccion = (objetivo.transform.position - transform.position).normalized;
-            rigid.velocity = new Vector2(direccion.x * speed, rigid.velocity.y);
+            rigid.linearVelocity = new Vector2(direccion.x * speed, rigid.linearVelocity.y);
 
             FlipTowards(objetivo.transform.position.x);
         }
         else
         {
-            rigid.velocity = new Vector2(0, rigid.velocity.y);
+            rigid.linearVelocity = new Vector2(0, rigid.linearVelocity.y);
 
             GameObject jugador = GameObject.FindGameObjectWithTag("Player");
             if (jugador != null)
@@ -57,12 +57,12 @@ public class Enemi_Controller : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(centroVision.position, tamañoVision);
+        Gizmos.DrawWireCube(centroVision.position, tamaÃ±oVision);
 
-        if (areaDeDaño != null)
+        if (areaDeDaÃ±o != null)
         {
             Gizmos.color = Color.green;
-            Gizmos.DrawWireCube(areaDeDaño.transform.position, areaDeDaño.size);
+            Gizmos.DrawWireCube(areaDeDaÃ±o.transform.position, areaDeDaÃ±o.size);
         }
     }
 
@@ -84,7 +84,7 @@ public class Enemi_Controller : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.CompareTag("Player") && areaDeDaño.IsTouching(other))
+        if (other.CompareTag("Player") && areaDeDaÃ±o.IsTouching(other))
         {
             if (anim.GetCurrentAnimatorStateInfo(0).IsName("attack"))
             {
@@ -93,7 +93,7 @@ public class Enemi_Controller : MonoBehaviour
                     ScoreVida vida = other.GetComponent<ScoreVida>();
                     if (vida != null)
                     {
-                        vida.RecibirDaño(daño); 
+                        vida.RecibirDaÃ±o(daÃ±o); 
                         tiempoUltimoAtaque = Time.time;  
                     }
                 }
