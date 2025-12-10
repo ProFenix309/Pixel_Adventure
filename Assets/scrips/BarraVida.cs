@@ -11,7 +11,7 @@ public class BarraVida : MonoBehaviour
 
     private void Start()
     {
-        vida.DañoRecibido += ActualizarBarra;
+        vida.DaÃ±oRecibido += ActualizarBarra;
         vida.CuraRecibida += ActualizarBarra;
     }
 
